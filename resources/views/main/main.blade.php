@@ -18,29 +18,29 @@
 {{-- end landing section jumbotron --}}
 
 {{-- 3 point advantage card --}}
-<div class="workspace container mx-auto mt-[-50px] relative z-20" data-aos="fade-up" data-aos-duration="500">
-  <div class="flex justify-center">
+<div class=" workspace container mx-auto mt-[-50px] relative z-20" data-aos="fade-up" data-aos-duration="500">
+  <div class="flex justify-center ">
     <div class="w-full xs:w-[80%] ss:w-4/5 md:w-[90%] lg:w-auto flex justify-center">
-      <div class="flex text-white rounded-2xl shadow-lg bg-semi-purple">
+      <div class="flex text-white rounded-2xl shadow-lg bg-blur">
         <div class="w-full sm:w-1/3 lg:w-1/3 text-center p-4 flex items-center justify-center ">
-          <img src="img/icons/time-icon2.png" class="icon mb-4 mx-4 w-12 h-12">
+          <img src="img/assets/icons/time-icon2.png" class="icon mb-4 mx-4 w-12 h-12">
           <div class="text-left">
             <h5 class="text-lg font-bold">Fleksibel</h5>
-            <p class="text-sm">Belajar Dimana Saja</p>
+            <p class="text-sm">Diakses Dimana Saja</p>
           </div>
         </div>
         <div class="w-full sm:w-1/3 lg:w-1/3 text-center p-4 flex items-center justify-center">
-          <img src="img/icons/handshake-icon.png" class="icon mb-4 mx-5 w-12 h-12">
+          <img src="img/assets/icons/handshake-icon.png" class="icon mb-4 mx-5 w-12 h-12">
           <div class="text-left">
             <h5 class="text-lg font-bold">Terpercaya</h5>
             <p class="text-sm">Dapat Diandalkan</p>
           </div>
         </div>
         <div class="w-full sm:w-1/3 lg:w-1/3 text-center p-4 flex items-center justify-center">
-          <img src="img/icons/free.png" class="icon mb-4 mx-4 w-12 h-12">
+          <img src="img/assets/icons/global-icon.png" class="icon mb-4 mx-4 w-12 h-12">
           <div class="text-left">
-            <h5 class="text-lg font-bold">Gratis</h5>
-            <p class="text-sm">Tidak Dipungut Biaya</p>
+            <h5 class="text-lg font-bold">Aman</h5>
+            <p class="text-sm">Data anda aman disimpan pada kami</p>
           </div>
         </div>
       </div>
@@ -58,12 +58,12 @@
   <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6" data-aos="fade-right">
       <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
           <h2 class="mb-4 text-4xl tracking-tight font-extrabold  text-white">Tentang Kami</h2>
-          <p class="mb-4 text-white">Learnify menyediakan akses pendidikan berkualitas tinggi bagi semua orang, di mana saja. Dengan berbagai kursus yang dirancang oleh para ahli di bidangnya, kami menawarkan pengalaman belajar yang interaktif dan komprehensif. </p>
-          <p class="mb-4 text-white">Misi kami adalah memberdayakan individu melalui pengetahuan dan keterampilan yang dapat meningkatkan karir dan kehidupan pribadi mereka. Kami percaya bahwa belajar adalah hak semua orang dan kami berkomitmen untuk menciptakan lingkungan belajar yang inklusif dan mendukung.</p>
+          <p class="mb-4 text-white">SnapCheck adalah aplikasi absensi online berbasis GPS yang dirancang untuk memudahkan proses kehadiran bagi berbagai jenis organisasi. Dengan teknologi GPS, SnapCheck memastikan keakuratan lokasi pengguna saat melakukan absensi, sehingga meminimalkan kecurangan dan meningkatkan transparansi. </p>
+          <p class="mb-4 text-white">Visi kami adalah menjadi solusi utama dalam manajemen kehadiran digital yang akurat dan efisien, serta mendukung peningkatan produktivitas dan transparansi dalam berbagai organisasi. Misi kami adalah menyediakan platform absensi online berbasis GPS yang handal dan mudah digunakan</p>
       </div>
       <div class="grid grid-cols-2 gap-4 mt-8">
-          <img style=" filter: grayscale(100%)" class="w-full rounded-lg" src="img/foto-about-landing5.jpg" alt="office content 1"data-aos="fade-down">
-          <img class="mt-4 w-full lg:mt-10 rounded-lg" src="img/foto-about-landing4.jpg" alt="office content 2" data-aos="fade-up">
+          <img style=" filter: grayscale(100%)" class="w-full rounded-lg" src="img/assets/foto-about-landing1.jpg" alt="office content 1"data-aos="fade-down">
+          <img class="mt-4 w-full lg:mt-10 rounded-lg" src="img/assets/foto-about-landing2.jpg" alt="office content 2" data-aos="fade-up">
       </div>
   </div>
 </section>
