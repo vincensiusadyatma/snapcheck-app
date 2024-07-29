@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Room extends Model
+class RoomOwnership extends Model
 {
     use HasFactory;
+    
 
     protected $fillable = [
-        'name',
-        'email',
-        'description',
-        'capacity',
-        'room_type',
-        'status'
+        'user_id',
+        'room_id'
     ];
 
- 
+    public function room() {
+        return $this->belongsTo(Room::class);
+    }
+    
 }

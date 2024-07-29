@@ -20,9 +20,16 @@ Route::prefix('auth')->middleware('guest')->group(function () {
 
 Route::get('/logout',[AuthController::class,'handle_logout'])->name('handle_logout');
 
+
 Route::middleware(['auth','CheckRole:user'])->prefix('user/{user:username}/dashboard')->group(function () {
     Route::get('/main', [DashboardController::class, 'show_dashboard'])->name('show-dashboard');
-    Route::get('/rooms', [RoomController::class, 'show_room'])->name('show-rooms');
+    Route::prefix('rooms')->group(function () {
+        Route::get('/', [RoomController::class, 'show_room'])->name('show-rooms');
+        Route::get('/create', [RoomController::class, 'show_create_room'])->name('create-room'); 
+        Route::post('/create/handle-create', [RoomController::class, 'create'])->name('handle-create'); 
+    });
+    
+  
 });
 
 Route::middleware(['auth','CheckRole:admin'])->prefix('admin/{user}')->group(function () {

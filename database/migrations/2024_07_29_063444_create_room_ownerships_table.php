@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rooms', function (Blueprint $table) {
+        Schema::create('room_ownerships', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Nama ruangan
-            $table->string('email');
-            $table->text('description')->nullable(); // Deskripsi ruangan
-            $table->integer('capacity')->nullable(); // Kapasitas ruangan
-            $table->string('room_type');
-            $table->boolean('status');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('room_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rooms');
+        Schema::dropIfExists('room_ownerships');
     }
 };
