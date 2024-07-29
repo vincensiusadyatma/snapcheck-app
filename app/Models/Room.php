@@ -18,5 +18,10 @@ class Room extends Model
         'status'
     ];
 
+    public function roomOwnership()
+    {
+        return $this->hasOne(RoomOwnership::class, 'room_id');
+    }
+
  
 }

@@ -23,12 +23,13 @@
 
   <!-- Mini Navbar -->
 <div class="flex space-x-4 mt-4">
-    <a href="{{ route('show-dashboard', ['user' => auth()->user()->username]) }}" class="btn-nav bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+    <a href="{{ route('show-myrooms', ['user' => auth()->user()->username]) }}" class="btn-nav bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
         My Rooms
     </a>
     <a href="{{ route('show-rooms', ['user' => auth()->user()->username]) }}" class="btn-nav bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
         Joined Rooms
     </a>
- 
 </div>
+
+
 @endsection

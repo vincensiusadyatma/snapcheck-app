@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\RoomOwnership;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class RoomController extends Controller
 {
@@ -15,6 +16,20 @@ class RoomController extends Controller
 
     public function show_create_room(){
         return view('dashboard.core.create-rooms');
+    }
+
+    public function show_my_room(){
+        $user = Auth::user();
+        $room_ownerships = $user->room_ownerships;
+
+        $rooms =  $room_ownerships->map(function ($ownership) {
+            return $ownership->room;
+        });
+
+      
+        return view('dashboard.core.myrooms',[
+            'rooms' => $rooms
+        ]);
     }
 
     public function create(Request $request){

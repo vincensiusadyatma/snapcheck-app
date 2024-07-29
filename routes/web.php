@@ -27,6 +27,7 @@ Route::middleware(['auth','CheckRole:user'])->prefix('user/{user:username}/dashb
         Route::get('/', [RoomController::class, 'show_room'])->name('show-rooms');
         Route::get('/create', [RoomController::class, 'show_create_room'])->name('create-room'); 
         Route::post('/create/handle-create', [RoomController::class, 'create'])->name('handle-create'); 
+        Route::get('/my-rooms', [RoomController::class, 'show_my_room'])->name('show-myrooms');
     });
     
   

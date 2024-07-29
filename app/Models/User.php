@@ -29,7 +29,7 @@ class User extends Authenticatable
     ];
 
     public function room_ownerships(){
-        return $this->hasMany(RoomOwnership::class);
+        return $this->hasMany(RoomOwnership::class,'user_id');
     }
     
 
