@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attendances', function (Blueprint $table) {
+        Schema::create('room_participants', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Nama kehadiran (misalnya, nama event atau pertemuan)
-            $table->text('description')->nullable(); // Deskripsi kehadiran
-            $table->dateTime('start_time'); // Waktu mulai kehadiran
-            $table->dateTime('end_time'); // Waktu selesai kehadiran
             $table->timestamps();
         });
     }
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attendances');
+        Schema::dropIfExists('room_participants');
     }
 };

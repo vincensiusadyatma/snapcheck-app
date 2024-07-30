@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Core\RoomController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Core\DashboardController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -19,8 +20,22 @@ Route::prefix('auth')->middleware('guest')->group(function () {
 
 Route::get('/logout',[AuthController::class,'handle_logout'])->name('handle_logout');
 
-Route::middleware(['auth','CheckRole:user'])->prefix('user/{user:username}')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'show_dashboard'])->name('show-dashboard');
+
+Route::middleware(['auth','CheckRole:user'])->prefix('user/dashboard')->group(function () {
+    Route::get('/main', [DashboardController::class, 'show_dashboard'])->name('show-dashboard');
+    Route::prefix('rooms')->group(function () {
+        Route::get('/', [RoomController::class, 'show_room'])->name('show-rooms');
+        Route::get('/create', [RoomController::class, 'show_create_room'])->name('create-room'); 
+        Route::post('/create/handle-create', [RoomController::class, 'create'])->name('handle-create'); 
+        Route::get('/my-rooms', [RoomController::class, 'show_my_room'])->name('show-myrooms');
+        Route::get('/my-rooms/{room}', [RoomController::class, 'show_myroom_details'])->name('show-myrooms-details');
+    });
+
+    Route::prefix('attendance')->group(function () {
+        Route::get('/{attedace}/details', [RoomController::class, 'show_room'])->name('');
+    });
+    
+  
 });
 
 Route::middleware(['auth','CheckRole:admin'])->prefix('admin/{user}')->group(function () {

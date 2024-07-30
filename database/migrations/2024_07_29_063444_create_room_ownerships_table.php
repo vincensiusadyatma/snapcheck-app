@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attendances', function (Blueprint $table) {
+        Schema::create('room_ownerships', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Nama kehadiran (misalnya, nama event atau pertemuan)
-            $table->text('description')->nullable(); // Deskripsi kehadiran
-            $table->dateTime('start_time'); // Waktu mulai kehadiran
-            $table->dateTime('end_time'); // Waktu selesai kehadiran
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('room_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attendances');
+        Schema::dropIfExists('room_ownerships');
     }
 };
