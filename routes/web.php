@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Core\RoomController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Core\RoomController;
 use App\Http\Controllers\Core\DashboardController;
+use App\Http\Controllers\Core\AttendanceController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
@@ -29,10 +30,12 @@ Route::middleware(['auth','CheckRole:user'])->prefix('user/dashboard')->group(fu
         Route::post('/create/handle-create', [RoomController::class, 'create'])->name('handle-create'); 
         Route::get('/my-rooms', [RoomController::class, 'show_my_room'])->name('show-myrooms');
         Route::get('/my-rooms/{room}', [RoomController::class, 'show_myroom_details'])->name('show-myrooms-details');
+        Route::get('/joined-rooms', [RoomController::class, 'show_joined_room'])->name('show-joinedrooms');
+        Route::post('/joined-rooms/enroll', [RoomController::class, 'enroll_room'])->name('handle-enroll');
     });
 
     Route::prefix('attendance')->group(function () {
-        Route::get('/{attedace}/details', [RoomController::class, 'show_room'])->name('');
+        Route::post('/create', [AttendanceController::class, 'create'])->name('handle-create-attendance');
     });
     
   

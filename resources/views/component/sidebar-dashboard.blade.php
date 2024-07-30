@@ -10,7 +10,7 @@
         <span class="text">Dashboard</span>
       </a>
     </li>
-    <li class="{{ request()->routeIs('show-rooms') ? 'active' : '' }}">
+    <li class="{{ request()->routeIs('show-rooms','show-myrooms','show-joinedrooms') ? 'active' : '' }}">
       <a href="{{ route('show-rooms') }}">
         <i class='bx bxs-shopping-bag-alt' ></i>
         <span class="text">Rooms</span>

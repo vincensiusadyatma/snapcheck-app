@@ -16,12 +16,17 @@ class Room extends Model
         'description',
         'capacity',
         'room_type',
-        'status'
+        'status',
+        'room_code'
     ];
 
     public function roomOwnership()
     {
         return $this->hasOne(RoomOwnership::class, 'room_id');
+    }
+
+    public function enrollRoom(){
+        return $this->hasMany(EnrollRoom::class);
     }
 
     public function attendance(){
