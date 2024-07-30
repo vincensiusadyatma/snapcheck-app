@@ -28,7 +28,7 @@
 <div class="flex items-center justify-center p-12">
     <!-- Author: FormBold Team -->
     <div class="mx-auto w-full ">
-        <form action="{{ route('handle-create', ['user' => auth()->user()->username]) }}" method="POST">
+        <form action="{{ route('handle-create') }}" method="POST">
             @csrf
             @if ($errors->any())
             <div class="text-red-600">

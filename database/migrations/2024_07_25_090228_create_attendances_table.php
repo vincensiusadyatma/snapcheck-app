@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
+            $table->string('name'); // Nama kehadiran (misalnya, nama event atau pertemuan)
+            $table->text('description')->nullable(); // Deskripsi kehadiran
+            $table->dateTime('start_time'); // Waktu mulai kehadiran
+            $table->dateTime('end_time'); // Waktu selesai kehadiran
             $table->timestamps();
         });
     }

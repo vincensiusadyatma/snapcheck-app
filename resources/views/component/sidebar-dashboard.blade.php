@@ -5,13 +5,13 @@
   </a>
   <ul class="side-menu top">
     <li class="{{ request()->routeIs('show-dashboard') ? 'active' : '' }}">
-      <a href="{{ route('show-dashboard', ['user' => auth()->user()->username]) }}">
+      <a href="{{ route('show-dashboard') }}">
         <i class='bx bxs-dashboard' ></i>
         <span class="text">Dashboard</span>
       </a>
     </li>
     <li class="{{ request()->routeIs('show-rooms') ? 'active' : '' }}">
-      <a href="{{ route('show-rooms', ['user' => auth()->user()->username]) }}">
+      <a href="{{ route('show-rooms') }}">
         <i class='bx bxs-shopping-bag-alt' ></i>
         <span class="text">Rooms</span>
       </a>

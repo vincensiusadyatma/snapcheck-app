@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\Auth;
 class RoomController extends Controller
 {
     public function show_room(){
-        return view('dashboard.core.rooms-main');
+        return view('dashboard.core.room.rooms-main');
     }
 
     public function show_create_room(){
-        return view('dashboard.core.create-rooms');
+        return view('dashboard.core.room.create-rooms');
     }
 
     public function show_my_room(){
@@ -27,10 +27,22 @@ class RoomController extends Controller
         });
 
       
-        return view('dashboard.core.myrooms',[
+        return view('dashboard.core.room.myrooms',[
             'rooms' => $rooms
         ]);
     }
+
+    public function show_myroom_details(Room $room)
+    {
+       
+        
+        return view('dashboard.core.room.myrooms-details',[
+            'room_name' => $room->name,
+            'room_desc' => $room->description,
+    
+        ]);
+    }
+    
 
     public function create(Request $request){
         $validated = $request->validate([

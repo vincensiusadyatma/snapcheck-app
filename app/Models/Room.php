@@ -9,6 +9,7 @@ class Room extends Model
 {
     use HasFactory;
 
+    
     protected $fillable = [
         'name',
         'email',
@@ -21,6 +22,10 @@ class Room extends Model
     public function roomOwnership()
     {
         return $this->hasOne(RoomOwnership::class, 'room_id');
+    }
+
+    public function attendance(){
+        return $this->hasMany(Attendance::class);
     }
 
  
