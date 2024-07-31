@@ -36,6 +36,9 @@ Route::middleware(['auth','CheckRole:user'])->prefix('user/dashboard')->group(fu
 
     Route::prefix('attendance')->group(function () {
         Route::post('/create', [AttendanceController::class, 'create'])->name('handle-create-attendance');
+        Route::post('/edit/{attendance}', [AttendanceController::class, 'create'])->name('');
+        Route::get('/admin/{attendance}/details', [AttendanceController::class, 'show_details_attendanceAdmin'])->name('show-attendance-admin-details');
+        Route::get('/user/{attendance}/details', [AttendanceController::class, 'show_details_attendanceUser'])->name('');
     });
     
   

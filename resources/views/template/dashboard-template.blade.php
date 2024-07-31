@@ -10,8 +10,15 @@
 	<link rel="shortcut icon" href="{{ asset('img/logo/snapcheck logo.png') }}">
 	<!-- My CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/dashboard.css') }}">
+	@notifyCss
     @vite('resources/css/app.css')
    
+	<style>
+		.notify {
+    z-index: 9999; /* Pastikan z-index ini lebih tinggi dari elemen lainnya */
+}
+	</style>
+	
 	<title>SnapCheck</title>
 </head>
 <body>
@@ -36,6 +43,7 @@
 
 
 	<script src="{{ asset('js/dashboard.js') }}"></script>
-
+	<x-notify::notify />
+    @notifyJs
 </body>
 </html>

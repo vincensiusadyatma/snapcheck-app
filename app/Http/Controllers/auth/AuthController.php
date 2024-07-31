@@ -33,6 +33,7 @@ class AuthController extends Controller
             $username = $credentials['username'];
     
             // Redirect ke rute 'show-dashboard' dengan parameter 'user'
+            notify()->success('Login Sucesfully');
             return redirect()->route('show-dashboard', ['user' => $username])
                              ->with('success', 'Item created successfully.');
         }
@@ -72,6 +73,8 @@ class AuthController extends Controller
 
             Auth::login($new_user);
 
+            notify()->success('Register Sucesfully');
+
             return redirect()->route('show-dashboard', ['user' => $username])
             ->with('success', 'Item created successfully.');
 
@@ -88,6 +91,8 @@ class AuthController extends Controller
 
     public function handle_logout(Request $request){
         Auth::logout();
+
+        notify()->success('Logout Sucesfully');
 
         return redirect()->route('landing-main')->with('success', 'You have been logged out.');
     }

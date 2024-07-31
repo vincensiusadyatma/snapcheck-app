@@ -102,37 +102,38 @@
   </div>
   @forelse ($attendances as $attendance)
     <!-- Cards -->
-    <div class="w-full max-w-4xl grid grid-cols-1 gap-4 transition transform hover:scale-105 hover:shadow-x">
-        <div class="bg-white text-gray-800 flex flex-col rounded-xl shadow-lg p-6">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <div class="rounded-full w-4 h-4 bg-purple-500"></div>
-                    <div class="text-lg font-bold">{{ $attendance->name }}</div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <div class="cursor-pointer">
-                        <img class="w-10 h-10 rounded-full" src="https://i.pravatar.cc/300" alt="Avatar"/>
-                    </div>
-                    <div class="text-gray-500 hover:text-gray-700 cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-4">
-                <div class="text-sm text-gray-600">
-                    {{ $attendance->description }}
-                </div>
-                <div class="mt-2 text-sm text-gray-600">
-                    <strong>Start:</strong> {{ $attendance->start_time }}
-                </div>
-                <div class="mt-2 text-sm text-gray-600">
-                    <strong>End:</strong> {{ $attendance->end_time }}
-                </div>
-            </div>
-        </div>
-    </div>
+    <a href="{{ route("show-attendance-admin-details",['attendance'=>$attendance->id]) }}" class="w-full max-w-4xl grid grid-cols-1 gap-4 transition transform hover:scale-105 hover:shadow-x no-underline">
+      <div class="bg-white text-gray-800 flex flex-col rounded-xl shadow-lg p-6">
+          <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-4">
+                  <div class="rounded-full w-4 h-4 bg-purple-500"></div>
+                  <div class="text-lg font-bold">{{ $attendance->name }}</div>
+              </div>
+              <div class="flex items-center space-x-4">
+                  <div class="cursor-pointer">
+                      <img class="w-10 h-10 rounded-full" src="https://i.pravatar.cc/300" alt="Avatar"/>
+                  </div>
+                  <div class="text-gray-500 hover:text-gray-700 cursor-pointer">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                      </svg>
+                  </div>
+              </div>
+          </div>
+          <div class="mt-4">
+              <div class="text-sm text-gray-600">
+                  {{ $attendance->description }}
+              </div>
+              <div class="mt-2 text-sm text-gray-600">
+                  <strong>Start:</strong> {{ $attendance->start_time }}
+              </div>
+              <div class="mt-2 text-sm text-gray-600">
+                  <strong>End:</strong> {{ $attendance->end_time }}
+              </div>
+          </div>
+      </div>
+  </a>
+  
 @empty
     <p>No attendances found.</p>
 @endforelse
