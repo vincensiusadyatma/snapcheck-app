@@ -18,6 +18,13 @@ class AttendanceController extends Controller
             'attendance' => $attendance
         ]);
     }
+    public function show_details_attendanceUser(Attendance $attendance){
+       
+        return view('dashboard.core.attendance.attendance-details_user',[
+            'attendance' => $attendance
+        ]);
+    }
+
 
     public function create(Request $request){
       

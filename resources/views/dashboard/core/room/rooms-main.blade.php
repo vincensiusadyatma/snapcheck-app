@@ -41,7 +41,7 @@
   <div class="rooms-list mt-4 flex flex-wrap">
       @forelse($myRooms as $room)
           <!-- Card -->
-          <a href="{{ route('show-myrooms-details', ['user' => auth()->user()->username, 'room' => $room->id]) }}" 
+          <a href="{{ route('show-myrooms-details', ['room' => $room->id]) }}" 
              class="relative bg-white py-6 px-6 rounded-3xl w-full sm:w-64 md:w-1/4 lg:w-1/4 my-6 mx-2 shadow-xl transform transition-transform duration-300 ease-in-out hover:scale-105">
               <div class="text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-pink-500 left-4 -top-6">
                   <!-- SVG Icon -->
@@ -100,7 +100,7 @@
   <div class="rooms-list mt-4 flex flex-wrap">
       @forelse($joinedRooms as $room)
           <!-- Card -->
-          <a href="" 
+          <a href="{{ route('show-joinedrooms-details', ['room' => $room->id]) }}" 
              class="relative bg-white py-6 px-6 rounded-3xl w-full sm:w-64 md:w-1/4 lg:w-1/4 my-6 mx-2 shadow-xl transform transition-transform duration-300 ease-in-out hover:scale-105">
               <div class="text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-blue-500 left-4 -top-6">
                   <!-- SVG Icon -->

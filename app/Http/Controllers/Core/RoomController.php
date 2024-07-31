@@ -89,6 +89,23 @@ class RoomController extends Controller
             'rooms' => $rooms
         ]);
     }
+
+    public function show_joined_room_details(Room $room){
+         
+        $attendances = Attendance::where('room_id', $room->id)->get();
+        $owner = $room->roomOwnership->user;
+        
+        return view('dashboard.core.room.joinedrooms-details',[
+                "owner" => $owner,
+                'room_id' => $room->id,
+                'room_name' => $room->name,
+                'room_desc' => $room->description,
+                'room_code' => $room->room_code,
+                'attendances' => $attendances
+        
+            
+        ]);
+    }
     
 
     public function enroll_room(Request $request){
