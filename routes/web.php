@@ -40,6 +40,7 @@ Route::middleware(['auth','CheckRole:user'])->prefix('user/dashboard')->group(fu
         Route::post('/edit/{attendance}', [AttendanceController::class, 'create'])->name('');
         Route::get('/admin/{attendance}/details', [AttendanceController::class, 'show_details_attendanceAdmin'])->name('show-attendance-admin-details');
         Route::get('/user/{attendance}/details', [AttendanceController::class, 'show_details_attendanceUser'])->name('show-attendance-user-details');
+        Route::post('/user/{attendance}/enroll', [AttendanceController::class, 'enroll_attendace'])->name('handle-enroll-attendance');
     });
     
   

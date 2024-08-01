@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Core;
 
+use Mockery\Matcher\Any;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
+use App\Models\EnrollAttendance;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Attendance;
-use Mockery\Matcher\Any;
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
@@ -46,5 +48,38 @@ class AttendanceController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage())->withInput();
         }
+    }
+
+
+    public function enroll_attendace(Request $request){
+        $validated = $request->validate([
+            'attendance_status' => 'required',
+            'location' => 'required',
+            'photo' => 'required|image|max:10240', // max 10MB
+        ]);
+        
+        // Debugging untuk memastikan data tervalidasi
+       
+        
+        // Dapatkan ID attendance
+        $attendanceId = $request->attendance_id; // Ganti dengan ID attendance yang sesuai
+      
+        // Buat jalur folder untuk attendance
+        $folderPath = 'photos/attendance_' . $attendanceId;
+        
+        // Upload photo ke folder yang sesuai
+        $path = $request->file('photo')->store($folderPath, 'public');
+        
+        // Simpan data ke database
+        EnrollAttendance::create([
+            'user_id' => Auth::id(),
+            'attendance_id' => $attendanceId,
+            'check_in_time' => now(),
+            'location' => $request->input('location'),
+            'photo' => $path,
+        ]);
+        
+        return redirect()->route('show-attendance-user-details',['attendance'=> $attendanceId])->with('success', 'Attendance recorded successfully.');
+        
     }
 }
