@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable(); // Deskripsi ruangan
             $table->integer('capacity')->nullable(); // Kapasitas ruangan
             $table->string('room_type');
+            $table->string('room_code')->unique();
             $table->boolean('status');
             $table->timestamps();
         });

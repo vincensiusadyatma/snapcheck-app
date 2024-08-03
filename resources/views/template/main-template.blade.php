@@ -11,6 +11,12 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
     @notifyCss
     @vite('resources/css/app.css')
+
+    <style>
+        .notify {
+    z-index: 9999; /* Pastikan z-index ini lebih tinggi dari elemen lainnya */
+}
+    </style>
 </head>
 <body class="bg-gray-800">
        

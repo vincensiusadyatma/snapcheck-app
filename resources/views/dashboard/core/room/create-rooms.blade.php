@@ -1,6 +1,5 @@
 @extends('template.dashboard-template')
 
-
 @section('content')
 
 <div class="head-title">
@@ -49,9 +48,9 @@
             </div>
             <div class="mb-5">
                 <label for="email" class="mb-3 block text-base font-medium text-[#07074D]">
-                    Email Adress
+                    Email Address
                 </label>
-                <input type="text" name="email" id="phone" placeholder="Enter your email address"
+                <input type="text" name="email" id="email" placeholder="Enter your email address"
                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
             </div>
             <div class="mb-5">
@@ -87,7 +86,10 @@
                 </div>
                 
             </div>
-        
+
+            <!-- Hidden Input for Room Code -->
+            <input type="hidden" name="room_code" id="room-code" value="">
+
             <div>
                 <button
                     class="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
@@ -98,5 +100,24 @@
         
     </div>
 </div>
+
+<script>
+    function generateRoomCode() {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const prefixes = ['A-', 'B-', 'C-', 'D-', 'E-']; // Daftar awalan yang tersedia
+        const randomPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+        let roomCode = randomPrefix;
+        for (let i = 0; i < 5; i++) {
+            roomCode += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return roomCode;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const roomCodeInput = document.getElementById('room-code');
+        roomCodeInput.value = generateRoomCode();
+    });
+</script>
+
 
 @endsection
