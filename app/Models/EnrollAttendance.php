@@ -12,7 +12,16 @@ class EnrollAttendance extends Model
         'user_id',
         'attendance_id',
         'check_in_time',
-        'location',
+        'latitude',
+        'longitude',
         'photo',
+        'device_info',
+        'os_info',
+        'ip_address',
     ];
+    
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

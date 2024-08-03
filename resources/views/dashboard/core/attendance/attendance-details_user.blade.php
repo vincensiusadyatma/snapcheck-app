@@ -33,6 +33,9 @@
 <form action="{{ route('handle-enroll-attendance',['attendance' => $attendance->id]) }}" method="POST" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="attendance_id" value="{{ $attendance->id }}">
+    <input type="hidden" id="device-info" name="device_info">
+    <input type="hidden" id="os-info" name="os_info">
+   
 
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <div class="mb-6">
@@ -115,6 +118,78 @@
 </form>
 
 <script>
+function getOperatingSystem() {
+    const userAgent = navigator.userAgent;
+    let os = "Unknown OS";
+
+    if (userAgent.indexOf("Win") !== -1) {
+        if (userAgent.indexOf("Windows NT 10.0") !== -1) {
+            // Penanganan spesifik Windows 11
+            if (userAgent.indexOf("Windows 11") !== -1) {
+                os = "Windows 11";
+            } else {
+                os = "Windows 10";
+            }
+        } else if (userAgent.indexOf("Windows NT 6.3") !== -1) {
+            os = "Windows 8.1";
+        } else if (userAgent.indexOf("Windows NT 6.2") !== -1) {
+            os = "Windows 8";
+        } else if (userAgent.indexOf("Windows NT 6.1") !== -1) {
+            os = "Windows 7";
+        } else if (userAgent.indexOf("Windows NT 6.0") !== -1) {
+            os = "Windows Vista";
+        } else if (userAgent.indexOf("Windows NT 5.1") !== -1) {
+            os = "Windows XP";
+        }
+    } else if (userAgent.indexOf("Mac") !== -1) {
+        os = "Mac OS";
+    } else if (userAgent.indexOf("X11") !== -1) {
+        os = "UNIX";
+    } else if (userAgent.indexOf("Linux") !== -1) {
+        os = "Linux";
+    }
+
+    return os;
+}
+
+function getDeviceInfo() {
+    const userAgent = navigator.userAgent;
+    let device = "Unknown Device";
+
+    if (/Android/.test(userAgent)) {
+        device = "Android Device";
+    } else if (/iPhone/.test(userAgent)) {
+        device = "iPhone";
+    } else if (/iPad/.test(userAgent)) {
+        device = "iPad";
+    } else if (/Windows/.test(userAgent)) {
+        device = "Windows Device";
+    } else if (/Macintosh/.test(userAgent)) {
+        device = "Mac Device";
+    }
+
+    return device;
+}
+
+
+    
+
+function getDeviceAndOSInfo() {
+    const deviceInfo = getDeviceInfo();
+    const osInfo = getOperatingSystem();
+
+    document.getElementById('device-info').value = deviceInfo;
+    document.getElementById('os-info').value = osInfo;
+}
+
+// Pastikan untuk memanggil fungsi ini sebelum mengirim formulir
+document.querySelector('form').addEventListener('submit', getDeviceAndOSInfo);
+
+
+
+    // Panggil fungsi ini saat halaman dimuat atau saat formulir dikirim
+    window.onload = getDeviceAndOSInfo;
+
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);

@@ -71,24 +71,33 @@
                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Status
                     </th>
+                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Action
+                    </th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                {{-- @foreach ($absentees as $absentee) --}}
+                @foreach ($absentees as $absentee)
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {{-- {{ $absentee->name }} --}}
+                        {{ $absentee->user->full_name }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{-- {{ $absentee->email }} --}}
+                        {{ $absentee->user->email }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{-- {{ $absentee->status }} --}}
+                        {{ $absentee->status }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <a href="{{ route('show-attendance-enroll-details',['attendance'=>$attendance->id,'enroll'=> $absentee->id]) }}" class="px-4 py-2 text-white bg-indigo-600 hover:bg-indigo-700 rounded-md">View Details</a>
+
+                        <!-- Ganti href dengan URL yang sesuai untuk detail data -->
                     </td>
                 </tr>
-                {{-- @endforeach --}}
+                @endforeach
             </tbody>
         </table>
+        
     </div>
 </div>
 @endsection

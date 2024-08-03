@@ -16,8 +16,13 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id'); // ID pengguna
             $table->unsignedBigInteger('attendance_id'); // ID kehadiran
             $table->dateTime('check_in_time'); // Waktu check-in
-            $table->string('location'); // Lokasi check-in
+            $table->string('latitude')->nullable(); // Lokasi check-in
+            $table->string('longitude')->nullable();
             $table->string('photo'); // Foto saat check-in
+            $table->string('device_info')->nullable();
+            $table->string('os_info')->nullable();
+            $table->string('ip_address')->nullable();
+            
             $table->timestamps();
 
             // Menambahkan foreign key constraint

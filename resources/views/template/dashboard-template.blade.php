@@ -7,6 +7,7 @@
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 	<link rel="shortcut icon" href="{{ asset('img/logo/snapcheck logo.png') }}">
 	<!-- My CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/dashboard.css') }}">
@@ -39,10 +40,14 @@
 		<!-- MAIN -->
 	</section>
 	<!-- CONTENT -->
+
+
+	
 	
 
 
 	<script src="{{ asset('js/dashboard.js') }}"></script>
+	<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 	<x-notify::notify />
     @notifyJs
 </body>
