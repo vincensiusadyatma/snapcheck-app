@@ -24,7 +24,7 @@
     <li>
       <i class='bx bxs-calendar-check' ></i>
       <span class="text">
-        <h3>95%</h3>
+        <h3>{{ $percentage }} %</h3>
         <p>Percentage</p>
       </span>
     </li>
@@ -55,22 +55,33 @@
         <thead>
           <tr>
             <th>Attendance Name</th>
-            <th>End Time</th>
+            <th>Remaining Time</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
-          @forelse ($list_absente as $absente_todo)
-            @foreach ($absente_todo as $todo)
-              <tr class="clickable-row" data-href="{{ route('show-attendance-user-details', ['attendance' => $todo->id]) }}""
+          @forelse ($list_attendances as $attendance)
+          
+              <tr class="clickable-row cursor-pointer" data-href="{{ route('show-attendance-user-details', ['attendance' => $attendance->id]) }}"
                 >
                 <td>
-                  <p>{{ $todo->name }}</p>
+                  <p>{{$attendance->name }}</p>
                 </td>
-                <td>01-10-2021</td>
-                <td><span class="status completed">Completed</span></td>
+                <td>
+                  @if ($attendance->remaining_time['days'] > 0)
+                      {{ $attendance->remaining_time['days'] }} days,
+                      {{ $attendance->remaining_time['hours'] }} hours
+                  @elseif ($attendance->remaining_time['hours'] > 0)
+                      {{ $attendance->remaining_time['hours'] }} hours,
+                      {{ $attendance->remaining_time['minutes'] }} minutes
+                  @else
+                      {{ $attendance->remaining_time['minutes'] }} minutes,
+                      {{ $attendance->remaining_time['seconds'] }} seconds
+                  @endif
+              </td>
+                <td><span class="status pending">Not Absente</span></td>
               </tr>
-            @endforeach
+          
           @empty
           @endforelse
         </tbody>
