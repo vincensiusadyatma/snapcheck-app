@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Core\RoomController;
 use App\Http\Controllers\Core\DashboardController;
 use App\Http\Controllers\Core\AttendanceController;
+use App\Http\Controllers\Core\ProfileController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
@@ -42,6 +43,10 @@ Route::middleware(['auth','CheckRole:user'])->prefix('user/dashboard')->group(fu
         Route::get('/user/{attendance}/details', [AttendanceController::class, 'show_details_attendanceUser'])->name('show-attendance-user-details');
         Route::post('/user/{attendance}/enroll', [AttendanceController::class, 'enroll_attendace'])->name('handle-enroll-attendance');
         Route::get('/admin/{attendance}/details/{enroll}', [AttendanceController::class, 'show_user_details_attendance'])->name('show-attendance-enroll-details');
+    });
+
+    Route::prefix('profile')->group(function () {
+        Route::get('/',[ProfileController::class,'show_profile'])->name('show-profile');
     });
     
   
