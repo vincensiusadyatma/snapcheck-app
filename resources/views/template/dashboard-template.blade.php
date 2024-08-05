@@ -6,6 +6,7 @@
 
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	
 	<script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />

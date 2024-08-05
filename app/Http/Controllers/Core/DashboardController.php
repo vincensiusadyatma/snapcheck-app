@@ -34,7 +34,7 @@ class DashboardController extends Controller
         $list_attendances = $enroll_room->flatMap(function($enroll) use ($enrolledAttendanceIds) {
             // Ambil semua attendance dari setiap room
             return $enroll->room->attendance->filter(function($attendance) use ($enrolledAttendanceIds) {
-                // Hanya ambil attendance yang ID-nya tidak ada di EnrollAttendance
+                // Just ambil attendance yang ID-nya tidak ada di EnrollAttendance
                 return !$enrolledAttendanceIds->contains($attendance->id);
             })->map(function($attendance) {
                 $endTime = $attendance->end_time;
@@ -45,7 +45,7 @@ class DashboardController extends Controller
                 $diffInMinutes = $now->diffInMinutes($endTime) % 60;
                 $diffInSeconds = $now->diffInSeconds($endTime) % 60;
             
-                // Tambahkan informasi sisa waktu ke objek attendance
+                // menambah informasi sisa waktu ke objek attendance
                 $attendance->remaining_time = [
                     'days' => round($diffInDays),
                     'hours' => round($diffInHours),
@@ -65,7 +65,7 @@ class DashboardController extends Controller
         $totalActivities = Attendance::count();
         $userActivities = EnrollAttendance::where('user_id', $userId)->count();
             if ($totalActivities > 0) {
-            $activityPercentage = ($userActivities / $totalActivities) * 100;
+            $activityPercentage = round(($userActivities / $totalActivities) * 100);
         } else {
             $activityPercentage = 0;
         }
