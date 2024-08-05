@@ -9,7 +9,14 @@
     <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
     <link rel="shortcut icon" href="{{ asset('img/logo/snapcheck logo.png') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+    @notifyCss
     @vite('resources/css/app.css')
+
+    <style>
+        .notify {
+    z-index: 9999; /* Pastikan z-index ini lebih tinggi dari elemen lainnya */
+}
+    </style>
 </head>
 <body class="bg-gray-800">
        
@@ -28,6 +35,7 @@
     </script>
 
    
-
+    <x-notify::notify />
+    @notifyJs
 </body>
 </html>
