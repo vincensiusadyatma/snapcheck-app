@@ -28,8 +28,8 @@
         <span class="text">Todos</span>
       </a>
     </li>
-    <li>
-      <a href="#">
+    <li class="{{ request()->routeIs('show-profile') ? 'active' : '' }}">
+      <a href="{{ route('show-profile') }}">
         <i class='bx bxs-group' ></i>
         <span class="text">Profile</span>
       </a>

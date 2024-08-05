@@ -31,6 +31,10 @@ class User extends Authenticatable
     public function room_ownerships(){
         return $this->hasMany(RoomOwnership::class,'user_id');
     }
+
+    public function enroll_attendance(){
+        return $this->hasMany((EnrollAttendance::class));
+    }
     
 
     /**

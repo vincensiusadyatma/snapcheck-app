@@ -19,4 +19,12 @@ class Attendance extends Model
     public function room(){
         return $this->belongsTo(Room::class);
     }
+
+    public function enrollAttendances(){
+        $this->hasMany(EnrollAttendance::class);
+    }
+
+    protected $casts = [
+        'end_time' => 'datetime',
+    ];
 }

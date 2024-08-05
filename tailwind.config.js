@@ -4,6 +4,7 @@ export default {
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
     "./resources/**/*.vue",
+    
   ],
   theme: {
     screens: {
@@ -24,5 +25,6 @@ export default {
     },
     extend: {},
   },
+  darkMode: 'class',
   plugins: [],
 }
