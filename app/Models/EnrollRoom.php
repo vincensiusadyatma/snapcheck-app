@@ -20,7 +20,7 @@ class EnrollRoom extends Model
     }
 
     public function user() {
-        return $this->belongsTo(EnrollRoom::class);
+        return $this->belongsTo(User::class);
     }
 
 }
