@@ -53,8 +53,7 @@ class RoomController extends Controller
             return $ownership->room;
         });
 
-       
-
+    
       
         return view('dashboard.core.room.myrooms',[
             'rooms' => $rooms
@@ -108,6 +107,20 @@ class RoomController extends Controller
     }
     
 
+    public function show_member_room(Room $room){
+        $participants = $room->enrollRoom->map(function($enroll){
+            return $enroll->user;
+        });
+
+        $owner = $room->roomOwnership->user;
+       
+
+ 
+        return view('dashboard.core.room.members-room',[
+            'owner' => $owner,
+            'participants' => $participants
+        ]);
+    }
     public function enroll_room(Request $request){
        
     

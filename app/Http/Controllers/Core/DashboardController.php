@@ -25,12 +25,9 @@ class DashboardController extends Controller
         
         $enroll_room = EnrollRoom::where('user_id',$userId)->get();
 
-      
-
-     // Ambil ID attendance yang ada di tabel EnrollAttendance untuk user_id tertentu
+        // Ambil ID attendance yang ada di tabel EnrollAttendance untuk user_id tertentu
         $enrolledAttendanceIds = EnrollAttendance::where('user_id', auth()->id())->pluck('attendance_id');
 
-        // Ambil attendance dari setiap room dan filter berdasarkan ID
         $list_attendances = $enroll_room->flatMap(function($enroll) use ($enrolledAttendanceIds) {
             // Ambil semua attendance dari setiap room
             return $enroll->room->attendance->filter(function($attendance) use ($enrolledAttendanceIds) {
@@ -46,17 +43,23 @@ class DashboardController extends Controller
                 $diffInSeconds = $now->diffInSeconds($endTime) % 60;
             
                 // menambah informasi sisa waktu ke objek attendance
+                
                 $attendance->remaining_time = [
                     'days' => round($diffInDays),
                     'hours' => round($diffInHours),
                     'minutes' => round($diffInMinutes),
                     'seconds' => round($diffInSeconds),
                 ];
+
+                if ($endTime->isPast()) {
+                    $attendance->status = 'Late';
+                } else {
+                    $attendance->status = 'on time';
+                }
             
                 return $attendance;
             });
-        });
-        
+        }); 
 
 
 

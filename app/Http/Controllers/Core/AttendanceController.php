@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Core;
 
+use Carbon\Carbon;
 use Mockery\Matcher\Any;
 use App\Models\Attendance;
+use App\Models\EnrollRoom;
 use Illuminate\Http\Request;
 use App\Models\EnrollAttendance;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +15,54 @@ use Illuminate\Support\Facades\Auth;
 class AttendanceController extends Controller
 {
 
+    public function show_attendance_main(){
+        $user = Auth::user();
+        $enroll_room = EnrollRoom::where('user_id',$user->id)->get();
+
+        // Ambil ID attendance yang ada di tabel EnrollAttendance untuk user_id tertentu
+        $enrolledAttendanceIds = EnrollAttendance::where('user_id', auth()->id())->pluck('attendance_id');
+
+        // Ambil attendance dari setiap room dan filter berdasarkan ID
+        $list_attendances = $enroll_room->flatMap(function($enroll) use ($enrolledAttendanceIds) {
+            // Ambil semua attendance dari setiap room
+            return $enroll->room->attendance->filter(function($attendance) use ($enrolledAttendanceIds) {
+                // Just ambil attendance yang ID-nya tidak ada di EnrollAttendance
+                return !$enrolledAttendanceIds->contains($attendance->id);
+            })->map(function($attendance) {
+                $endTime = $attendance->end_time;
+                $now = Carbon::now();
+            
+                $diffInDays = $now->diffInDays($endTime);
+                $diffInHours = $now->diffInHours($endTime) % 24;
+                $diffInMinutes = $now->diffInMinutes($endTime) % 60;
+                $diffInSeconds = $now->diffInSeconds($endTime) % 60;
+            
+                // menambah informasi sisa waktu ke objek attendance
+                
+                $attendance->remaining_time = [
+                    'days' => round($diffInDays),
+                    'hours' => round($diffInHours),
+                    'minutes' => round($diffInMinutes),
+                    'seconds' => round($diffInSeconds),
+                ];
+
+                if ($endTime->isPast()) {
+                    $attendance->status = 'Late';
+                } else {
+                    $attendance->status = 'on time';
+                }
+            
+                return $attendance;
+            });
+        }); 
+        
+
+        
+
+        return view('dashboard.core.attendance.attendance',[
+            'attendances' => $list_attendances
+        ]);
+    }
 
     public function show_details_attendanceAdmin(Attendance $attendance){
       // Eager load 'user' relation to avoid N+1 problem
@@ -27,7 +77,32 @@ class AttendanceController extends Controller
         ]);
     }
     public function show_details_attendanceUser(Attendance $attendance){
-       
+
+        $endTime = $attendance->end_time;
+        $now = Carbon::now();
+    
+        $diffInDays = $now->diffInDays($endTime);
+        $diffInHours = $now->diffInHours($endTime) % 24;
+        $diffInMinutes = $now->diffInMinutes($endTime) % 60;
+        $diffInSeconds = $now->diffInSeconds($endTime) % 60;
+    
+        // menambah informasi sisa waktu ke objek attendance
+        
+        $attendance->remaining_time = [
+            'days' => round($diffInDays),
+            'hours' => round($diffInHours),
+            'minutes' => round($diffInMinutes),
+            'seconds' => round($diffInSeconds),
+        ];
+
+        if ($endTime->isPast()) {
+            $attendance->status = 'Late';
+        } else {
+            $attendance->status = 'on time';
+        }
+        
+  
+
         return view('dashboard.core.attendance.attendance-details_user',[
             'attendance' => $attendance
         ]);

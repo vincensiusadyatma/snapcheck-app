@@ -92,17 +92,25 @@
     <div class="text-2xl font-bold">{{ $room_name }}</div>
     <div class="text-gray-600 mt-2">{{ $room_desc }}</div>
     <div class="text-gray-500 mt-4">
-      <span class="font-semibold">Owner: {{ auth()->user()->email }}</span>
+        <span class="font-semibold">Owner: {{ auth()->user()->email }}</span>
     </div>
     <!-- Room Code -->
     <div class="flex items-center mt-4">
-      <input id="room-code" type="text" value="{{ $room_code }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mr-2" readonly>
-      <button onclick="copyRoomCode()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5">Copy</button>
+        <input id="room-code" type="text" value="{{ $room_code }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mr-2" readonly>
+        <button onclick="copyRoomCode()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5">Copy</button>
     </div>
-  </div>
+    <!-- New Button with Icon -->
+    <div class="flex items-center mt-4">
+        <a href="{{ route('show-member-room',['room' => $room_id]) }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 flex items-center">
+            <i class='bx bx-user mr-2'></i>
+            Members
+        </a>
+    </div>
+</div>
+
   @forelse ($attendances as $attendance)
     <!-- Cards -->
-    <a href="{{ route("show-attendance-admin-details",['attendance'=>$attendance->id]) }}" class="w-full max-w-4xl grid grid-cols-1 gap-4 transition transform hover:scale-105 hover:shadow-x no-underline">
+    <a href="{{ route("show-attendance-admin-details",['attendance'=>$attendance->id]) }}" class="w-full max-w-4xl grid grid-cols-1 gap-4 transition transform hover:scale-105 hover:shadow-x no-underline my-3">
       <div class="bg-white text-gray-800 flex flex-col rounded-xl shadow-lg p-6">
           <div class="flex items-center justify-between">
               <div class="flex items-center space-x-4">

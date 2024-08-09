@@ -41,7 +41,7 @@
   <div class="flex flex-wrap mt-10">
     @forelse ($rooms as $room)
         <!-- card -->
-        <a href="{{ route('show-myrooms-details',['user'=> auth()->user()->username ,'room' => $room->id]) }}" class="relative bg-white py-6 px-6 rounded-3xl w-full sm:w-64 md:w-1/4 lg:w-1/4 my-6 mx-2 shadow-xl transform transition-transform duration-300 ease-in-out hover:scale-105">
+        <a href="{{ route('show-myrooms-details',['room' => $room->id]) }}" class="relative bg-white py-6 px-6 rounded-3xl w-full sm:w-64 md:w-1/4 lg:w-1/4 my-6 mx-2 shadow-xl transform transition-transform duration-300 ease-in-out hover:scale-105">
             <div class="text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-pink-500 left-4 -top-6">
                 <!-- svg -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">

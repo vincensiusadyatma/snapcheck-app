@@ -5,21 +5,24 @@
     <h2 class="text-2xl font-semibold mb-4">Profile</h2>
     
     <div class="bg-white shadow-md rounded-lg p-6 relative">
-        <form action="" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('profile-update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
             <div class="flex flex-col items-center mb-6">
                 <div class="relative w-32 h-32">
-                    <label for="profile_photo" class="cursor-pointer">
-                        @if(auth()->user()->profile_photo)
-                            <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}" alt="Profile Photo" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <label for="profile_photo" class="cursor-pointer group">
+                        @if(auth()->user()->photo_path)
+                            <img src="{{ asset('storage/' . auth()->user()->photo_path) }}" alt="Profile Photo" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-md hover:shadow-lg transition-shadow duration-300">
                         @else
                             <div class="w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center border-4 border-white shadow-md hover:shadow-lg transition-shadow duration-300">
-                                <span class="text-gray-500">Upload Photo</span>
+                                <img class="w-full" src="{{ asset('img/assets/profile.png') }}" id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" class="w-10 h-10 rounded-full cursor-pointer" alt="User dropdown">
                             </div>
                         @endif
-                        <input type="file" name="profile_photo" id="profile_photo" class="hidden">
+                        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="text-white text-sm font-medium">Change Photo</span>
+                        </div>
+                        <input type="file" name="photo_path" id="profile_photo" class="hidden">
                     </label>
                 </div>
             </div>
@@ -41,7 +44,7 @@
 
             <div class="mb-4">
                 <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
-                <input type="text" name="phone" id="phone" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" value="{{ auth()->user()->phone }}" required>
+                <input type="text" name="phone_number" id="phone" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" value="{{ auth()->user()->phone_number }}" required>
             </div>
 
             <div class="mb-4">

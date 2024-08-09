@@ -58,7 +58,13 @@
             </div>
             <div class="flex items-center">
                 <p class="text-gray-600 mr-2">Status:</p>
-                <span class="px-2 py-1 text-sm font-semibold text-white bg-green-500 rounded-full">On Time</span>
+                <span class="px-2 py-1 text-sm font-semibold text-white  @if ($attendance->status == 'Late')
+                        bg-red-500
+                      @else
+                        bg-green-500
+                      @endif
+                      
+                      {{ $attendance->status }} rounded-full">{{ $attendance->status }}</span>
             </div>
         </div>
         
