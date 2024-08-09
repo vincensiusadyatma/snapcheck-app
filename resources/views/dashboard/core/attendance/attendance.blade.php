@@ -66,9 +66,9 @@
         <td class="px-4 py-3 text-md font-semibold border">{{ $attendance->room->name }}</td>
         <td class="px-4 py-3 text-sm border">
           @if ($attendance->status == 'Late')
-              @if ($attendance->remaining_time['days'] > 0)
+              @if (abs($attendance->remaining_time['days']) > 0)
                   <span class="text-red-500">Over {{ abs($attendance->remaining_time['days']) }} days, {{ abs($attendance->remaining_time['hours']) }} hours Late</span>
-              @elseif ($attendance->remaining_time['hours'] > 0)
+              @elseif (abs($attendance->remaining_time['hours']) > 0)
                   <span class="text-red-500">Over {{ $attendance->remaining_time['hours'] }} hours, {{ $attendance->remaining_time['minutes'] }} minutes Late</span>
               @else
                   <span class="text-red-500">Over {{ abs($attendance->remaining_time['minutes']) }} minutes, {{ abs($attendance->remaining_time['seconds']) }} seconds Late</span>

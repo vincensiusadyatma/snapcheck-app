@@ -77,7 +77,32 @@ class AttendanceController extends Controller
         ]);
     }
     public function show_details_attendanceUser(Attendance $attendance){
-       
+
+        $endTime = $attendance->end_time;
+        $now = Carbon::now();
+    
+        $diffInDays = $now->diffInDays($endTime);
+        $diffInHours = $now->diffInHours($endTime) % 24;
+        $diffInMinutes = $now->diffInMinutes($endTime) % 60;
+        $diffInSeconds = $now->diffInSeconds($endTime) % 60;
+    
+        // menambah informasi sisa waktu ke objek attendance
+        
+        $attendance->remaining_time = [
+            'days' => round($diffInDays),
+            'hours' => round($diffInHours),
+            'minutes' => round($diffInMinutes),
+            'seconds' => round($diffInSeconds),
+        ];
+
+        if ($endTime->isPast()) {
+            $attendance->status = 'Late';
+        } else {
+            $attendance->status = 'on time';
+        }
+        
+  
+
         return view('dashboard.core.attendance.attendance-details_user',[
             'attendance' => $attendance
         ]);

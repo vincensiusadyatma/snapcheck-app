@@ -67,20 +67,35 @@
                 <td>
                   <p>{{$attendance->name }}</p>
                 </td>
-                <td>
-                  @if ($attendance->remaining_time['days'] > 0)
-                      {{ $attendance->remaining_time['days'] }} days,
-                      {{ $attendance->remaining_time['hours'] }} hours
-                  @elseif ($attendance->remaining_time['hours'] > 0)
-                      {{ $attendance->remaining_time['hours'] }} hours,
-                      {{ $attendance->remaining_time['minutes'] }} minutes
+                <td class="px-4 py-3 text-sm ">
+                  @if ($attendance->status == 'Late')
+                      @if (abs($attendance->remaining_time['days']) > 0)
+                          <span class="text-red-500">Over {{ abs($attendance->remaining_time['days']) }} days, {{ abs($attendance->remaining_time['hours']) }} hours Late</span>
+                      @elseif (abs($attendance->remaining_time['hours']) > 0)
+                          <span class="text-red-500">Over {{ $attendance->remaining_time['hours'] }} hours, {{ $attendance->remaining_time['minutes'] }} minutes Late</span>
+                      @else
+                          <span class="text-red-500">Over {{ abs($attendance->remaining_time['minutes']) }} minutes, {{ abs($attendance->remaining_time['seconds']) }} seconds Late</span>
+                      @endif
                   @else
-                      {{ $attendance->remaining_time['minutes'] }} minutes,
-                      {{ $attendance->remaining_time['seconds'] }} seconds
+                      @if ($attendance->remaining_time['days'] > 0)
+                          {{ $attendance->remaining_time['days'] }} days, {{ $attendance->remaining_time['hours'] }} hours
+                      @elseif ($attendance->remaining_time['hours'] > 0)
+                          {{ $attendance->remaining_time['hours'] }} hours, {{ $attendance->remaining_time['minutes'] }} minutes
+                      @else
+                          {{ $attendance->remaining_time['minutes'] }} minutes, {{ $attendance->remaining_time['seconds'] }} seconds
+                      @endif
                   @endif
-              </td>
-                <td><span class="status pending">Not Absente</span></td>
-              </tr>
+                  <td class="px-4 py-3 text-sm  ">
+                    <span class=" w-full block px-4 py-2 font-semibold leading-tight text-white text-center
+                      @if ($attendance->status == 'Late')
+                        bg-red-500
+                      @else
+                        bg-green-500
+                      @endif
+                      rounded-full">
+                      {{ $attendance->status }}
+                    </span>
+                  </td>
           
           @empty
           @endforelse
