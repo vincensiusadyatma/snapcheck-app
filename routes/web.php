@@ -50,6 +50,14 @@ Route::middleware(['auth','CheckRole:user'])->prefix('user/dashboard')->group(fu
     Route::prefix('profile')->group(function () {
         Route::get('/',[ProfileController::class,'show_profile'])->name('show-profile');
         Route::put('/update', [ProfileController::class, 'update'])->name('profile-update');
+        Route::get('/{user}/details',[ProfileController::class,'show_users_profile'])->name('show-users-profile');
+    });
+
+    Route::prefix('todo')->group(function () {
+        Route::get('/', function () {
+            return view('dashboard.core.todo.todo');
+        })->name('show-todo');
+     
     });
     
   

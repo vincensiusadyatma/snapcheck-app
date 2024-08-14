@@ -22,21 +22,22 @@
 
   <ul class="box-info">
     <li>
-      <i class='bx bxs-calendar-check' ></i>
+      
+      <i class='bx bx-trending-up' ></i>
       <span class="text">
         <h3>{{ $percentage }} %</h3>
         <p>Percentage</p>
       </span>
     </li>
     <li>
-      <i class='bx bxs-group' ></i>
+      <i class='bx bxs-key' ></i>
       <span class="text">
         <h3>{{ $myRoomsCount }}</h3>
         <p>My Rooms</p>
       </span>
     </li>
     <li>
-      <i class='bx bxs-dollar-circle' ></i>
+      <i class='bx bxs-home' ></i>
       <span class="text">
         <h3>{{ $joinedRoomsCount }}</h3>
         <p>Joined Rooms</p>

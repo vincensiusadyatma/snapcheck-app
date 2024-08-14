@@ -16,18 +16,19 @@ class DashboardController extends Controller
     public function show_dashboard(){
         $user = Auth::user();
         $userId = Auth::id();
-
+    
         // Ambil jumlah "My Rooms" dari RoomOwnership
         $myRoomsCount = RoomOwnership::where('user_id', $userId)->count();
-
-        // Ambil jumlah "Joined Rooms" dari Room
-        $joinedRoomsCount = EnrollRoom::where('user_id',$userId)->count();
+    
+        // Ambil jumlah "Joined Rooms" dari EnrollRoom
+        $joinedRoomsCount = EnrollRoom::where('user_id', $userId)->count();
         
-        $enroll_room = EnrollRoom::where('user_id',$userId)->get();
-
+        $enroll_room = EnrollRoom::where('user_id', $userId)->get();
+    
         // Ambil ID attendance yang ada di tabel EnrollAttendance untuk user_id tertentu
-        $enrolledAttendanceIds = EnrollAttendance::where('user_id', auth()->id())->pluck('attendance_id');
-
+        $enrolledAttendanceIds = EnrollAttendance::where('user_id', Auth::user()->id)->pluck('attendance_id');
+    
+        // Ambil semua attendance dari setiap room dan hanya ambil 4 yang terbaru
         $list_attendances = $enroll_room->flatMap(function($enroll) use ($enrolledAttendanceIds) {
             // Ambil semua attendance dari setiap room
             return $enroll->room->attendance->filter(function($attendance) use ($enrolledAttendanceIds) {
@@ -42,42 +43,40 @@ class DashboardController extends Controller
                 $diffInMinutes = $now->diffInMinutes($endTime) % 60;
                 $diffInSeconds = $now->diffInSeconds($endTime) % 60;
             
-                // menambah informasi sisa waktu ke objek attendance
-                
+                // Menambah informasi sisa waktu ke objek attendance
                 $attendance->remaining_time = [
                     'days' => round($diffInDays),
                     'hours' => round($diffInHours),
                     'minutes' => round($diffInMinutes),
                     'seconds' => round($diffInSeconds),
                 ];
-
+    
                 if ($endTime->isPast()) {
                     $attendance->status = 'Late';
                 } else {
-                    $attendance->status = 'on time';
+                    $attendance->status = 'On time';
                 }
             
                 return $attendance;
             });
-        }); 
-
-
-
-
-
+        })->sortByDesc(function($attendance) {
+            return $attendance->end_time; // Mengurutkan berdasarkan waktu akhir secara descending
+        })->take(5); // Mengambil hanya 4 item terbaru
+    
         $totalActivities = Attendance::count();
         $userActivities = EnrollAttendance::where('user_id', $userId)->count();
-            if ($totalActivities > 0) {
+        if ($totalActivities > 0) {
             $activityPercentage = round(($userActivities / $totalActivities) * 100);
         } else {
             $activityPercentage = 0;
         }
-
-        return view('dashboard.dashboard-main',[
+    
+        return view('dashboard.dashboard-main', [
             'myRoomsCount' => $myRoomsCount,
             'joinedRoomsCount' => $joinedRoomsCount,
             'list_attendances' => $list_attendances,
             'percentage' => $activityPercentage
         ]);
     }
+    
 }

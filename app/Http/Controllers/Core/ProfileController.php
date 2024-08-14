@@ -50,4 +50,10 @@ class ProfileController extends Controller
     public function show_profile(){
         return view('dashboard.core.profile.profile');
     }
+
+    public function show_users_profile(User $user){
+        return view('dashboard.core.profile.user-profile',[
+            "user" => $user
+        ]);
+    }
 }

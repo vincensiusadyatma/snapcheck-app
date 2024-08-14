@@ -3,14 +3,14 @@
 @section('content')
 <div class="head-title">
     <div class="left">
-      <h1>Dashboard</h1>
+      <h1>Attendance</h1>
       <ul class="breadcrumb">
         <li>
           <a href="#">Dashboard</a>
         </li>
         <li><i class='bx bx-chevron-right' ></i></li>
         <li>
-          <a class="active" href="#">Main</a>
+          <a class="active" href="#">Attendance</a>
         </li>
       </ul>
     </div>
@@ -24,22 +24,22 @@
     <li>
       <i class='bx bxs-calendar-check' ></i>
       <span class="text">
-        <h3></h3>
-        <p>Percentage</p>
+        <h3>{{ $totalAttendances }}</h3>
+        <p>Total Attendances</p>
       </span>
     </li>
     <li>
       <i class='bx bxs-group' ></i>
       <span class="text">
-        <h3></h3>
-        <p>My Rooms</p>
+        <h3>{{ $onTimeAttendances }}</h3>
+        <p>On Time</p>
       </span>
     </li>
     <li>
       <i class='bx bxs-dollar-circle' ></i>
       <span class="text">
-        <h3></h3>
-        <p>Joined Rooms</p>
+        <h3>{{ $lateAttendances }}</h3>
+        <p>Late</p>
       </span>
     </li>
   </ul>
@@ -102,6 +102,61 @@
       @endforelse
     </tbody>
   </table>
+ {{-- Pagination Links --}}
+<div class="flex items-center justify-between mt-4">
+  <div>
+      <p class="text-sm text-gray-700 leading-5">
+          Showing
+          <span class="font-medium">{{ $attendances->firstItem() }}</span>
+          to
+          <span class="font-medium">{{ $attendances->lastItem() }}</span>
+          of
+          <span class="font-medium">{{ $attendances->total() }}</span>
+          entries
+      </p>
+  </div>
+  <div>
+      <div class="relative z-0 inline-flex rounded-md shadow-sm" aria-label="Pagination">
+          {{-- Previous Page Link --}}
+          @if ($attendances->onFirstPage())
+              <span class="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 cursor-not-allowed">
+                  Previous
+              </span>
+          @else
+              <a href="{{ $attendances->previousPageUrl() }}" class="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                  Previous
+              </a>
+          @endif
+
+          {{-- Pagination Links --}}
+          @for ($page = 1; $page <= $attendances->lastPage(); $page++)
+              @if ($page == $attendances->currentPage())
+                  <span class="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                      {{ $page }}
+                  </span>
+              @else
+                  <a href="{{ $attendances->url($page) }}" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                      {{ $page }}
+                  </a>
+              @endif
+          @endfor
+
+          {{-- Next Page Link --}}
+          @if ($attendances->hasMorePages())
+              <a href="{{ $attendances->nextPageUrl() }}" class="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                  Next
+              </a>
+          @else
+              <span class="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 cursor-not-allowed">
+                  Next
+              </span>
+          @endif
+      </div>
+  </div>
+</div>
+
+
+
   
 @endsection
 

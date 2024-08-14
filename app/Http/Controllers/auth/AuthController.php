@@ -34,8 +34,8 @@ class AuthController extends Controller
     
             // Redirect ke rute 'show-dashboard' dengan parameter 'user'
             notify()->success('Login Sucesfully');
-            return redirect()->route('show-dashboard', ['user' => $username])
-                             ->with('success', 'Item created successfully.');
+            return redirect()->route('show-dashboard', ['user' => $username]);
+                           
         }
     
         // Jika autentikasi gagal

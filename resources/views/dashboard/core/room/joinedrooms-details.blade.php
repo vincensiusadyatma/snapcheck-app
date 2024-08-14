@@ -100,7 +100,7 @@
   </div>
   @forelse ($attendances as $attendance)
     <!-- Cards -->
-    <a href="{{ route("show-attendance-user-details",['attendance'=>$attendance->id]) }}" class="w-full max-w-4xl grid grid-cols-1 gap-4 transition transform hover:scale-105 hover:shadow-x no-underline">
+    <a href="{{ route("show-attendance-user-details",['attendance'=>$attendance->id]) }}" class="w-full max-w-4xl grid grid-cols-1 gap-4 transition transform hover:scale-105 hover:shadow-x no-underline my-3">
       <div class="bg-white text-gray-800 flex flex-col rounded-xl shadow-lg p-6">
           <div class="flex items-center justify-between">
               <div class="flex items-center space-x-4">
@@ -145,3 +145,4 @@
 
 
 @endsection
+
