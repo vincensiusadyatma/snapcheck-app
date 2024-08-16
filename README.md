@@ -1,3 +1,7 @@
+<div align="center">
+    <img alt="Demo" src="public/img/logo/snapcheck logo.png" style="width:30%">
+</div>
+
 # SnapCheck
 
 SnapCheck adalah aplikasi absensi online yang memungkinkan pengguna untuk melakukan absensi dengan fitur pelacakan lokasi secara real-time. Aplikasi ini dirancang untuk memudahkan manajemen kehadiran dalam berbagai aktivitas, seperti pertemuan, kelas, atau kegiatan lainnya, dengan dukungan teknologi terkini.
