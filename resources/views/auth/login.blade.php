@@ -17,7 +17,7 @@
                         <div class="text-2xl text-indigo-800 tracking-wide ml-2 font-semibold">SnapCheck</div>
                     </div>
                 </div>
-                <div class="">
+                <div class="sm:p-10 md:p-0">
                     <h2 class="text-center text-4xl text-indigo-900 font-display font-semibold lg:text-left xl:text-5xl
                     xl:text-bold">Log in</h2>
                     <div class="mt-12">
@@ -50,7 +50,7 @@
                             </div>
                         </form>
                         <div class="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
-                            Don't have an account ? <a class="cursor-pointer text-indigo-600 hover:text-indigo-800">Sign up</a>
+                            Don't have an account ? <a href="{{ route('register') }}" class="cursor-pointer text-indigo-600 hover:text-indigo-800">Sign up</a>
                         </div>
                     </div>
                 </div>

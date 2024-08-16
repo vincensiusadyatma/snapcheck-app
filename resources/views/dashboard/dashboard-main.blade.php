@@ -14,10 +14,10 @@
         </li>
       </ul>
     </div>
-    <a href="#" class="btn-download">
+    {{-- <a href="#" class="btn-download">
       <i class='bx bxs-cloud-download' ></i>
       <span class="text">Download PDF</span>
-    </a>
+    </a> --}}
   </div>
 
   <ul class="box-info">
@@ -52,6 +52,7 @@
         <i class='bx bx-search' ></i>
         <i class='bx bx-filter' ></i>
       </div>
+      
       <table>
         <thead>
           <tr>
@@ -99,6 +100,13 @@
                   </td>
           
           @empty
+          <tr>
+            <td colspan="3" class="px-4 py-3">
+                <div class="flex items-center justify-center h-full min-h-[100px] text-gray-500">
+                    No attendances data
+                </div>
+            </td>
+        </tr>
           @endforelse
         </tbody>
       </table>

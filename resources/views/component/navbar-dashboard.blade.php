@@ -1,6 +1,6 @@
 <nav>
     <i class='bx bx-menu' ></i>
-    <a href="#" class="nav-link">Categories</a>
+    {{-- <a href="#" class="nav-link">Categories</a> --}}
     <form action="#">
         <div class="form-input">
             <input type="search" placeholder="Search...">
@@ -9,10 +9,7 @@
     </form>
     <input type="checkbox" id="switch-mode" hidden>
     <label for="switch-mode" class="switch-mode"></label>
-    <a href="#" class="notification">
-        <i class='bx bxs-bell' ></i>
-        <span class="num">8</span>
-    </a>
+ 
 
     <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex text-sm bg-transparent rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
         <span class="sr-only">Open user menu</span>
@@ -34,14 +31,14 @@
             </div>
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
                 <li>
-                    <a href="/dashboard" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>    
+                    <a href="{{ route('show-dashboard') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>    
                   
                 </li>
                 <li>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+                    <a href="{{ route('show-profile') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
                 </li>
                 <li>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Home</a>
+                    <a href="/" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Home</a>
                 </li>
             </ul>
             <div class="py-1">

@@ -40,11 +40,14 @@ class ProfileController extends Controller
             
             DB::commit();
             
-            return response()->json(['message' => 'Profile updated successfully.'], 200);
+            
+            return redirect()->back()
+            ->with('success', 'Update Profile Data Successfully.');
         } catch (\Exception $e) {
             DB::rollBack();
             
-            return response()->json(['message' => 'Failed to update profile.', 'error' => $e->getMessage()], 500);
+            return redirect()->back()
+            ->with('error', 'Failed Update Profile Data.');
         }
     }
     public function show_profile(){
