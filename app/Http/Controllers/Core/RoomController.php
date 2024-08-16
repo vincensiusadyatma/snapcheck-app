@@ -31,13 +31,16 @@ class RoomController extends Controller
         $joinedRooms =  EnrollRoom::where('user_id', $userId)->latest()->take(4)->get()->map(function ($enroll) {
                         return $enroll->room;
                     });;
-      
+
+
+  
        
     return view('dashboard.core.room.rooms-main', [
         'myRoomsCount' => $myRoomsCount,
         'joinedRoomsCount' => $joinedRoomsCount,
         'myRooms' => $myRooms,
         'joinedRooms' => $joinedRooms,
+      
     ]);
     }
 
@@ -53,8 +56,7 @@ class RoomController extends Controller
             return $ownership->room;
         });
 
-       
-
+    
       
         return view('dashboard.core.room.myrooms',[
             'rooms' => $rooms
@@ -77,7 +79,7 @@ class RoomController extends Controller
 
 
     public function show_joined_room(){
-        $enroll_room = EnrollRoom::where('user_id', auth()->user()->id)->get();
+        $enroll_room = EnrollRoom::where('user_id', Auth::user()->id)->get();
 
         $rooms =  $enroll_room->map(function ($enroll) {
             return $enroll->room;
@@ -108,13 +110,46 @@ class RoomController extends Controller
     }
     
 
-    public function enroll_room(Request $request){
+    public function show_member_room(Room $room){
+        $participants = $room->enrollRoom->map(function($enroll){
+            return $enroll->user;
+        });
+
+        $owner = $room->roomOwnership->user;
        
+
+ 
+        return view('dashboard.core.room.members-room',[
+            'owner' => $owner,
+            'participants' => $participants
+        ]);
+    }
+    public function enroll_room(Request $request){
+    
     
         $validated = $request->validate([
             'room_code' => 'required',
         ]);
         $room = Room::where('room_code', $request->room_code)->first();
+        $filteredEnrollRoom = $room->enrollRoom->filter(function ($enrollRoom) {
+            // Memeriksa apakah user_id pada enrollRoom sama dengan user_id yang sedang login
+            return $enrollRoom->user_id == Auth::id();
+        });
+
+        if ($filteredEnrollRoom) {
+            return redirect()->back()->with('error', 'Anda Sudah Join Ke Room ini');
+        }
+
+        if (!$room) {
+            return redirect()->back()->with('error', 'Room not found.');
+        }
+    
+        // Cek apakah Auth::user() adalah pemilik room
+        if ($room->roomOwnership->user_id == Auth::user()->id) { // Sesuaikan owner_id dengan kolom yang sesuai
+            return redirect()->back()->with('error', 'You cannot enroll in your own room.');
+        }
+
+     
 
         $data_enroll = [
             "room_id" => $room->id,
@@ -123,7 +158,7 @@ class RoomController extends Controller
 
         EnrollRoom::create($data_enroll);
         return redirect()->route('show-joinedrooms')
-        ->with('success', 'Item created successfully.');
+        ->with('success', 'Anda Berhasil Join Ke Room Ini');
 
      
     }
@@ -145,7 +180,7 @@ class RoomController extends Controller
             $new_room = Room::create($validated);
 
             RoomOwnership::create([
-                'user_id' => auth()->user()->id,
+                'user_id' => Auth::user(),
                 'room_id' => $new_room->id
             ]);
 

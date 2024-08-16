@@ -34,9 +34,11 @@ Route::middleware(['auth','CheckRole:user'])->prefix('user/dashboard')->group(fu
         Route::get('/joined-rooms', [RoomController::class, 'show_joined_room'])->name('show-joinedrooms');
         Route::get('/joined-rooms/{room}', [RoomController::class, 'show_joined_room_details'])->name('show-joinedrooms-details');
         Route::post('/joined-rooms/enroll', [RoomController::class, 'enroll_room'])->name('handle-enroll');
+        Route::get('/my-rooms/{room}/members', [RoomController::class, 'show_member_room'])->name('show-member-room');
     });
 
     Route::prefix('attendance')->group(function () {
+        Route::get('/', [AttendanceController::class, 'show_attendance_main'])->name('show-attendance');
         Route::post('/create', [AttendanceController::class, 'create'])->name('handle-create-attendance');
         Route::post('/edit/{attendance}', [AttendanceController::class, 'create'])->name('');
         Route::get('/admin/{attendance}/details', [AttendanceController::class, 'show_details_attendanceAdmin'])->name('show-attendance-admin-details');
@@ -47,6 +49,15 @@ Route::middleware(['auth','CheckRole:user'])->prefix('user/dashboard')->group(fu
 
     Route::prefix('profile')->group(function () {
         Route::get('/',[ProfileController::class,'show_profile'])->name('show-profile');
+        Route::put('/update', [ProfileController::class, 'update'])->name('profile-update');
+        Route::get('/{user}/details',[ProfileController::class,'show_users_profile'])->name('show-users-profile');
+    });
+
+    Route::prefix('todo')->group(function () {
+        Route::get('/', function () {
+            return view('dashboard.core.todo.todo');
+        })->name('show-todo');
+     
     });
     
   

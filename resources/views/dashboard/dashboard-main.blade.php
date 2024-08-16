@@ -14,29 +14,30 @@
         </li>
       </ul>
     </div>
-    <a href="#" class="btn-download">
+    {{-- <a href="#" class="btn-download">
       <i class='bx bxs-cloud-download' ></i>
       <span class="text">Download PDF</span>
-    </a>
+    </a> --}}
   </div>
 
   <ul class="box-info">
     <li>
-      <i class='bx bxs-calendar-check' ></i>
+      
+      <i class='bx bx-trending-up' ></i>
       <span class="text">
         <h3>{{ $percentage }} %</h3>
         <p>Percentage</p>
       </span>
     </li>
     <li>
-      <i class='bx bxs-group' ></i>
+      <i class='bx bxs-key' ></i>
       <span class="text">
         <h3>{{ $myRoomsCount }}</h3>
         <p>My Rooms</p>
       </span>
     </li>
     <li>
-      <i class='bx bxs-dollar-circle' ></i>
+      <i class='bx bxs-home' ></i>
       <span class="text">
         <h3>{{ $joinedRoomsCount }}</h3>
         <p>Joined Rooms</p>
@@ -51,6 +52,7 @@
         <i class='bx bx-search' ></i>
         <i class='bx bx-filter' ></i>
       </div>
+      
       <table>
         <thead>
           <tr>
@@ -67,22 +69,44 @@
                 <td>
                   <p>{{$attendance->name }}</p>
                 </td>
-                <td>
-                  @if ($attendance->remaining_time['days'] > 0)
-                      {{ $attendance->remaining_time['days'] }} days,
-                      {{ $attendance->remaining_time['hours'] }} hours
-                  @elseif ($attendance->remaining_time['hours'] > 0)
-                      {{ $attendance->remaining_time['hours'] }} hours,
-                      {{ $attendance->remaining_time['minutes'] }} minutes
+                <td class="px-4 py-3 text-sm ">
+                  @if ($attendance->status == 'Late')
+                      @if (abs($attendance->remaining_time['days']) > 0)
+                          <span class="text-red-500">Over {{ abs($attendance->remaining_time['days']) }} days, {{ abs($attendance->remaining_time['hours']) }} hours Late</span>
+                      @elseif (abs($attendance->remaining_time['hours']) > 0)
+                          <span class="text-red-500">Over {{ $attendance->remaining_time['hours'] }} hours, {{ $attendance->remaining_time['minutes'] }} minutes Late</span>
+                      @else
+                          <span class="text-red-500">Over {{ abs($attendance->remaining_time['minutes']) }} minutes, {{ abs($attendance->remaining_time['seconds']) }} seconds Late</span>
+                      @endif
                   @else
-                      {{ $attendance->remaining_time['minutes'] }} minutes,
-                      {{ $attendance->remaining_time['seconds'] }} seconds
+                      @if ($attendance->remaining_time['days'] > 0)
+                          {{ $attendance->remaining_time['days'] }} days, {{ $attendance->remaining_time['hours'] }} hours
+                      @elseif ($attendance->remaining_time['hours'] > 0)
+                          {{ $attendance->remaining_time['hours'] }} hours, {{ $attendance->remaining_time['minutes'] }} minutes
+                      @else
+                          {{ $attendance->remaining_time['minutes'] }} minutes, {{ $attendance->remaining_time['seconds'] }} seconds
+                      @endif
                   @endif
-              </td>
-                <td><span class="status pending">Not Absente</span></td>
-              </tr>
+                  <td class="px-4 py-3 text-sm  ">
+                    <span class=" w-full block px-4 py-2 font-semibold leading-tight text-white text-center
+                      @if ($attendance->status == 'Late')
+                        bg-red-500
+                      @else
+                        bg-green-500
+                      @endif
+                      rounded-full">
+                      {{ $attendance->status }}
+                    </span>
+                  </td>
           
           @empty
+          <tr>
+            <td colspan="3" class="px-4 py-3">
+                <div class="flex items-center justify-center h-full min-h-[100px] text-gray-500">
+                    No attendances data
+                </div>
+            </td>
+        </tr>
           @endforelse
         </tbody>
       </table>

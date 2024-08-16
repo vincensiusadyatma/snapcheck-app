@@ -23,6 +23,7 @@ class User extends Authenticatable
         'username' ,
         'email' ,
         'phone_number' ,
+        'photo_path',
         'address' ,
         'password' ,
       
@@ -34,6 +35,10 @@ class User extends Authenticatable
 
     public function enroll_attendance(){
         return $this->hasMany((EnrollAttendance::class));
+    }
+
+    public function enroll_room(){
+        return $this->hasMany(EnrollRoom::class);
     }
     
 
