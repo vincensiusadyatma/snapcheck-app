@@ -64,12 +64,25 @@ window.addEventListener('resize', function () {
 
 
 
-const switchMode = document.getElementById('switch-mode');
-
-switchMode.addEventListener('change', function () {
-	if(this.checked) {
+  // Fungsi untuk menerapkan tema gelap
+function applyDarkMode(isDark) {
+	if (isDark) {
 		document.body.classList.add('dark');
+		document.getElementById('switch-mode').checked = true;
 	} else {
 		document.body.classList.remove('dark');
+		document.getElementById('switch-mode').checked = false;
 	}
-})
+}
+
+// Memeriksa status dark mode dari localStorage
+const darkMode = localStorage.getItem('darkMode') === 'true';
+applyDarkMode(darkMode);
+
+// Menangani perubahan mode saat checkbox diklik
+const switchMode = document.getElementById('switch-mode');
+switchMode.addEventListener('change', function () {
+	const isDark = this.checked;
+	localStorage.setItem('darkMode', isDark); // Simpan status ke localStorage
+	applyDarkMode(isDark);
+});

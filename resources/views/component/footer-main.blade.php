@@ -12,7 +12,7 @@
                   <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase text-white">Resources</h2>
                   <ul class="text-gray-500 text-gray-400 font-medium">
                       <li class="mb-4">
-                          <a href="#" class="hover:underline">Learning Path</a>
+                          <a href="#" class="hover:underline">Feature</a>
                       </li>
                       <li>
                           <a href="#" class="hover:underline">About Us</a>
@@ -23,7 +23,7 @@
                   <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase text-white">Follow us</h2>
                   <ul class=" text-gray-400 font-medium">
                       <li class="mb-4">
-                          <a href="https://github.com/vincensiusadyatma/learnify-elearning-website" class="hover:underline ">Github</a>
+                          <a href="https://github.com/vincensiusadyatma/snapcheck-app" class="hover:underline ">Github</a>
                       </li>
                       <li>
                           <a href="#" class="hover:underline">Discord</a>
@@ -45,7 +45,7 @@
       </div>
       <hr class="my-6 border-gray-200 sm:mx-auto border-gray-700 lg:my-8" />
       <div class="sm:flex sm:items-center sm:justify-between">
-          <span class="text-sm text-gray-500 sm:text-center text-gray-400">© 2024 <a href="#" class="hover:underline">SnapCheck™</a>. All Rights Reserved.
+          <span class="text-sm text-gray-500 sm:text-center text-gray-400">© 2024 <a href="#" class="hover:underline">CV INFORMATION TECHNOLOGY SOLUSI INDONESIA</a>. All Rights Reserved.
           </span>
           <div class="flex mt-4 sm:justify-center sm:mt-0">
               <a href="#" class="text-gray-500 hover:text-gray-900 hover:text-white">

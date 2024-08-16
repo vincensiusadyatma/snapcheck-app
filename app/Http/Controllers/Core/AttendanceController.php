@@ -11,56 +11,63 @@ use App\Models\EnrollAttendance;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AttendanceController extends Controller
 {
 
-    public function show_attendance_main(){
+    public function show_attendance_main() {
         $user = Auth::user();
-        $enroll_room = EnrollRoom::where('user_id',$user->id)->get();
-
-        // Ambil ID attendance yang ada di tabel EnrollAttendance untuk user_id tertentu
-        $enrolledAttendanceIds = EnrollAttendance::where('user_id', auth()->id())->pluck('attendance_id');
-
-        // Ambil attendance dari setiap room dan filter berdasarkan ID
+        $enroll_room = EnrollRoom::where('user_id', $user->id)->get();
+    
+        $enrolledAttendanceIds = EnrollAttendance::where('user_id', Auth::user()->id)->pluck('attendance_id');
+    
         $list_attendances = $enroll_room->flatMap(function($enroll) use ($enrolledAttendanceIds) {
-            // Ambil semua attendance dari setiap room
             return $enroll->room->attendance->filter(function($attendance) use ($enrolledAttendanceIds) {
-                // Just ambil attendance yang ID-nya tidak ada di EnrollAttendance
                 return !$enrolledAttendanceIds->contains($attendance->id);
             })->map(function($attendance) {
                 $endTime = $attendance->end_time;
                 $now = Carbon::now();
-            
+    
                 $diffInDays = $now->diffInDays($endTime);
                 $diffInHours = $now->diffInHours($endTime) % 24;
                 $diffInMinutes = $now->diffInMinutes($endTime) % 60;
                 $diffInSeconds = $now->diffInSeconds($endTime) % 60;
-            
-                // menambah informasi sisa waktu ke objek attendance
-                
+    
                 $attendance->remaining_time = [
                     'days' => round($diffInDays),
                     'hours' => round($diffInHours),
                     'minutes' => round($diffInMinutes),
                     'seconds' => round($diffInSeconds),
                 ];
-
-                if ($endTime->isPast()) {
-                    $attendance->status = 'Late';
-                } else {
-                    $attendance->status = 'on time';
-                }
-            
+    
+                $attendance->status = $endTime->isPast() ? 'Late' : 'on time';
+    
                 return $attendance;
             });
-        }); 
-        
-
-        
-
-        return view('dashboard.core.attendance.attendance',[
-            'attendances' => $list_attendances
+        });
+    
+        // Hitung jumlah attendances
+        $totalAttendances = $list_attendances->count();
+        $lateAttendances = $list_attendances->filter(function($attendance) {
+            return $attendance->status === 'Late';
+        })->count();
+        $onTimeAttendances = $list_attendances->filter(function($attendance) {
+            return $attendance->status === 'on time';
+        })->count();
+    
+        // Pagination custom untuk Collection
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $perPage = 5;
+        $currentPageItems = $list_attendances->slice(($currentPage - 1) * $perPage, $perPage)->all();
+        $paginatedItems = new LengthAwarePaginator($currentPageItems, $list_attendances->count(), $perPage);
+        $paginatedItems->setPath(request()->url());
+    
+        return view('dashboard.core.attendance.attendance', [
+            'attendances' => $paginatedItems,
+            'totalAttendances' => $totalAttendances,
+            'lateAttendances' => $lateAttendances,
+            'onTimeAttendances' => $onTimeAttendances,
         ]);
     }
 

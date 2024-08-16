@@ -16,14 +16,14 @@
         <span class="text">Rooms</span>
       </a>
     </li>
-    <li>
+    <li class="{{ request()->routeIs('show-attendance') ? 'active' : '' }}">
       <a href="{{ route('show-attendance') }}">
         <i class='bx bxs-doughnut-chart' ></i>
         <span class="text">Attendance</span>
       </a>
     </li>
     <li>
-      <a href="#">
+      <a href="{{ route('show-todo') }}">
         <i class='bx bxs-message-dots' ></i>
         <span class="text">Todos</span>
       </a>
@@ -36,12 +36,12 @@
     </li>
   </ul>
   <ul class="side-menu">
-    <li>
+    {{-- <li>
       <a href="#">
         <i class='bx bxs-cog' ></i>
         <span class="text">Settings</span>
       </a>
-    </li>
+    </li> --}}
     <li>
       <a href="{{ route('handle_logout') }}" class="logout">
         <i class='bx bxs-log-out-circle' ></i>
